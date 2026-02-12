@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Smart Expense Tracker</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+
+<body class="dark-mode">
+    <div class="container">
+        <!-- Left Sidebar -->
+        <!-- DOUBT -->
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <div class="profile-trigger" id="profileTrigger">
+                    <img src="profile-image.png" alt="Profile" id="sidebarProfileImg">
+                    <!-- DOUBT -->
+                    <span>Profile</span>
+                </div>
+            </div>
+            <nav class="sidebar-nav">
+                <button class="nav-item active" data-view="dashboard">
+                    <i class="fas fa-home"></i> Home
+                </button>
+                <div class="nav-group">
+                    <button class="nav-item" id="expensesToggle">
+                        <i class="fas fa-wallet"></i> Expenses <i class="fas fa-chevron-down"></i>
+                    </button>
+                    <div class="submenu" id="expensesSubmenu">
+                        <button class="submenu-item" data-filter="daily">Daily</button>
+                        <button class="submenu-item" data-filter="monthly">Monthly</button>
+                        <button class="submenu-item" data-filter="yearly">Yearly</button>
+                    </div>
+                </div>
+                <div class="nav-group">
+                    <button class="nav-item" id="tripsToggle">
+                        <i class="fas fa-plane"></i> Trips <i class="fas fa-chevron-down"></i>
+                    </button>
+                    <div class="submenu" id="tripsSubmenu">
+                        <button class="submenu-item" data-filter="upcoming">Upcoming Trips</button>
+                        <button class="submenu-item" data-filter="done">Trips Done</button>
+                    </div>
+                </div>
+                <div class="nav-group">
+                    <button class="nav-item" id="approvalsToggle">
+                        <i class="fas fa-check-circle"></i> Approvals <i class="fas fa-chevron-down"></i>
+                    </button>
+                    <div class="submenu" id="approvalsSubmenu">
+                        <button class="submenu-item" data-filter="pending">Pending Approvals</button>
+                        <button class="submenu-item" data-filter="done">Approvals Done</button>
+                    </div>
+                </div>
+            </nav>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <header class="dashboard-header">
+                <div class="header-info">
+                    <h1 id="dashboardTitle">Dashboard</h1>
+                    <p id="welcomeMessage">Welcome User, Here is what's happening today.</p>
+                </div>
+                <div class="header-actions">
+                    <div class="notification-wrapper">
+                        <button id="notificationBtn" class="icon-btn">
+                            <i class="fas fa-bell"></i>
+                            <span class="badge" id="notificationBadge">0</span>
+                        </button>
+                        <div id="notificationDropdown" class="dropdown-content">
+                            <h3>Notifications</h3>
+                            <ul id="notificationList"></ul>
+                        </div>
+                    </div>
+                </div>
+            </header>
+
+            <!-- Action Cards -->
+            <section class="action-cards">
+                <div class="card action-card" id="newExpenseCard">
+                    <h3><i class="fas fa-plus-circle"></i> New Expense</h3>
+                    <form id="expenseForm">
+                        <input type="text" name="subject" placeholder="Subject" required>
+                        <input type="text" name="employee" placeholder="Employee" required>
+                        <input type="text" name="team" placeholder="Team" required>
+                        <div class="amount-group">
+                            <input type="number" name="amount" placeholder="Amount" required>
+                            <select class="currency" name="currency">
+                                <option value="INR">INR</option>
+                                <option value="$">$</option>
+                                <option value="€">€</option>
+                            </select>
+                        </div>
+                        <button type="submit" class="btn-primary">Save Expense</button>
+                    </form>
+                </div>
+
+                <div class="card action-card" id="addReceiptCard">
+                    <h3><i class="fas fa-receipt"></i> Add Receipt</h3>
+                    <form id="receiptForm">
+                        <input type="text" name="receiptName" placeholder="Receipt Name" required>
+                        <input type="text" name="subject" placeholder="Subject" required>
+                        <input type="text" name="employee" placeholder="Employee" required>
+                        <input type="text" name="team" placeholder="Team" required>
+                        <input type="number" name="amount" placeholder="Amount" required>
+                        <button type="submit" class="btn-secondary">Add Receipt</button>
+                    </form>
+                </div>
+
+                <div class="card action-card" id="createTripCard">
+                    <h3><i class="fas fa-map-marker-alt"></i> Create Trip</h3>
+                    <form id="tripForm">
+                        <input type="text" name="place" placeholder="Place" required>
+                        <input type="number" name="budget" placeholder="Total Budget Needed" required>
+                        <input type="text" name="participants" placeholder="With Whom" required>
+                        <div class="date-wrapper">
+                            <div>
+                                <span class="fake-text">From</span>
+                                <input type="date" class="date-input" name="dateFrom" required>
+                            </div>
+                            <div>
+                                <span class="fake-text">To</span>
+                                <input type="date" class="date-input" name="dateTo" required>
+                            </div>
+                        </div>
+                        <button type="submit" class="btn-success">Create Trip</button>
+                    </form>
+                </div>
+
+                <div class="card action-card" id="createAlarmCard">
+                    <h3><i class="fas fa-clock"></i> Create Alarm</h3>
+                    <form id="alarmForm">
+                        <input type="text" name="subject" placeholder="Subject" required>
+                        <div class="date-time-group">
+                            <div class="date-wrapper">
+                                <span class="fake-text">Date</span>
+                                <input type="date" class="date-input" name="date" required>
+                            </div>
+                            <div class="date-wrapper">
+                                <span class="fake-text">Time</span>
+                                <input type="time" class="time-input" name="time" required>
+                            </div>
+                        </div>
+                        <div class="amount-group">
+                            <input type="number" name="amount" placeholder="Amount" required>
+                            <select class="currency" name="currency">
+                                <option value="INR">INR</option>
+                                <option value="$">$</option>
+                                <option value="€">€</option>
+                            </select>
+                        </div>
+                        <button type="submit" class="btn-warning">Set Alarm</button>
+                    </form>
+                </div>
+            </section>
+
+            <div class="dashboard-grid">
+                <!-- Pending Tasks -->
+                <section class="card pending-tasks">
+                    <h3>Pending Tasks</h3>
+                    <div class="task-buttons">
+                        <button class="task-btn" data-task="pending-approvals">Pending Approvals <span class="count"
+                                id="pendingApprovalsCount">0</span></button>
+                        <button class="task-btn" data-task="new-trips">New Trips Registered <span class="count"
+                                id="newTripsCount">0</span></button>
+                        <button class="task-btn" data-task="unreported">Unreported Expenses <span class="amount"
+                                id="unreportedAmount">$0</span></button>
+                        <button class="task-btn" data-task="upcoming">Upcoming Expenses <span class="count"
+                                id="upcomingExpensesCount">0</span></button>
+                    </div>
+                </section>
+
+                <!-- Expense Table -->
+                <section class="card expense-table-container">
+                    <h3>Recent Expenses</h3>
+                    <div class="table-scroll">
+                        <table id="expenseTable">
+                            <thead>
+                                <tr>
+                                    <th>Subject</th>
+                                    <th>Employee</th>
+                                    <th>Team</th>
+                                    <th>Amount</th>
+                                </tr>
+                            </thead>
+                            <tbody id="expenseTableBody"></tbody>
+                        </table>
+                    </div>
+                </section>
+            </div>
+
+            <!-- Graph Section -->
+            <section class="card graph-section">
+                <div class="graph-header">
+                    <h3>Analytics</h3>
+                    <div class="graph-controls">
+                        <select id="trendPeriod">
+                            <option value="weekly">Weekly</option>
+                            <option value="monthly">Monthly</option>
+                            <option value="yearly">Yearly</option>
+                        </select>
+                        <button id="toggleChartType" class="btn-outline">Toggle View</button>
+                    </div>
+                </div>
+                <div class="canvas-container">
+                    <canvas id="expenseChart"></canvas>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <!-- Profile Modal -->
+    <div id="profileModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Edit Profile</h2>
+                <span class="close">&times;</span>
+            </div>
+            <form id="profileForm">
+                <div class="form-group">
+                    <label>Name</label>
+                    <input type="text" id="profileName" required>
+                </div>
+                <div class="form-group">
+                    <label>Email</label>
+                    <input type="email" id="profileEmail" required>
+                </div>
+                <div class="form-group">
+                    <label>Role</label>
+                    <input type="text" id="profileRole" required>
+                </div>
+                <div class="form-group">
+                    <label>Photo</label>
+                    <input type="file" id="profilePhoto" accept="image/*">
+                </div>
+                <div class="form-group" style="text-align: right;">
+                    <button type="button" id="removePhotoBtn" class="btn-warning" style="background-color: red; width: auto; padding: 8px 12px; font-size: 0.8rem;">Remove Photo</button>
+                </div>
+                <button type="submit" class="btn-primary">Save Changes</button>
+            </form>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
